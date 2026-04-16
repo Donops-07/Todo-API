@@ -1,10 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
-const logRequest = require("./logger.js");
-const validateTodo = require("./validator.js");
-const validatePatch = require("./validate_patch.js");
-const errorHandler = require("./errorHandler.js");
+const logRequest = require("./middlewares/logger.js");
+const validateTodo = require("./middlewares/validator.js");
+const validatePatch = require("./middlewares/validate_patch.js");
+const errorHandler = require("./middlewares/errorHandler.js");
 const app = express();
 const port = process.env.PORT || 3000;
 
