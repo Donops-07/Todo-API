@@ -20,6 +20,23 @@ app.get('/', (req, res) => {
 });
 
 
+app.get("/todos", async (req, res, next) => {
+    try {
+        const completed = req.query.completed;  //USE /todos?completed=false
+        console.log(completed);
+        const falseTodo = await Todo.find({ completed: false });
+        const trueTodo = await Todo.find({ completed: true });
+        if (completed === "false") return res.status(200).json({ falseTodo });
+        if (completed) return res.status(200).json({ trueTodo })
+        else {
+            res.status(400).json({ error: "Does not recognize" });
+        };
+
+    } catch (error) {
+        console.error("An error occured", error);
+    }
+    next();
+});
 
 // GET All – Read
 app.get('/todos', async (req, res) => {
