@@ -24,11 +24,15 @@ app.get("/todos", async (req, res, next) => {
     try {
         const completed = req.query.completed;  //USE /todos?completed=false
         console.log(completed);
-        const falseTodo = await Todo.find({ completed: false });
-        const trueTodo = await Todo.find({ completed: true });
-        if (completed === "false") return res.status(200).json({ falseTodo });
-        if (completed) return res.status(200).json({ trueTodo })
-        else {
+
+        if (completed === "false") {
+            const falseTodo = await Todo.find({ completed: false });
+            return res.status(200).json({ falseTodo });
+        }
+        if (completed) {
+            const trueTodo = await Todo.find({ completed: true });
+            return res.status(200).json({ trueTodo })
+        } else {
             res.status(400).json({ error: "Does not recognize" });
         };
 
@@ -39,7 +43,7 @@ app.get("/todos", async (req, res, next) => {
 });
 
 // GET All – Read
-app.get('/todos', async (req, res) => {
+app.get('/todos/summary', async (req, res) => {
     const todos = await Todo.find({});
     res.status(200).json(todos); // Send array as JSON
 });
